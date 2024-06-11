@@ -55,8 +55,7 @@ export function addNewHistory(newHistory) {
      * - store.currentFunds 새로 갱신
      */
     if (store.detailList[store.todayId]) {
-      store.detailList[store.todayId] =
-        store.detailList[store.todayId].push(newHistory);
+      store.detailList[store.todayId].push(newHistory);
     } else {
       store.detailList[store.todayId] = [newHistory];
     }
