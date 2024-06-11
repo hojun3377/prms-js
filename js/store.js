@@ -30,11 +30,11 @@ export const store = {
 };
 
 export function updateStorage() {
-  sessionStorage.setItem("store", JSON.stringify(store));
+  sessionStorage.setItem('store', JSON.stringify(store));
 }
 
 export function initStore() {
-  const storage = sessionStorage.getItem("store");
+  const storage = sessionStorage.getItem('store');
   if (!storage) updateStorage();
 
   const { dateList, detailList, todayId, currentFunds, isFirstEdit } =
@@ -54,8 +54,14 @@ export function addNewHistory(newHistory) {
      * - store의 detailList 새로 갱신
      * - store.currentFunds 새로 갱신
      */
-    store.detailList = null;
-    store.currentFunds = null;
+    if (store.detailList[store.todayId]) {
+      store.detailList[store.todayId] =
+        store.detailList[store.todayId].push(newHistory);
+    } else {
+      store.detailList[store.todayId] = [newHistory];
+    }
+
+    store.currentFunds -= newHistory.amount;
 
     updateStorage();
     return true;
