@@ -45,15 +45,16 @@ export function renderHistoryList() {
     <p class="history-date">2021년 12월 1일</p>
     ${detail
       .sort((a, b) => b.id - a.id)
-      .map(({ description, category, amount, fundsAtTheTime, createAt }) => {
-        // 2024-06-11T13:21:59.046Z -> HH:mm
+      .map(
+        ({ description, category, amount, fundsAtTheTime, createAt, id }) => {
+          // 2024-06-11T13:21:59.046Z -> HH:mm
 
-        const time = new Date(createAt).toLocaleTimeString('ko-kr', {
-          timeStyle: 'short',
-          hourCycle: 'h24',
-        });
+          const time = new Date(createAt).toLocaleTimeString('ko-kr', {
+            timeStyle: 'short',
+            hourCycle: 'h24',
+          });
 
-        return `<section class="history-item">
+          return `<section class="history-item">
         <section class="history-item-column">
           <div class="create-at">${time}</div>
           <div class="history-detail">
@@ -69,7 +70,7 @@ export function renderHistoryList() {
             </div>
           </div>
           <div class="delete-section">
-            <button class="delete-button">🗑</button>
+            <button class="delete-button" data-dateid=${dateId} data-itemid=${id}>🗑</button>
           </div>
         </section>
         <section class="history-item-caption">
@@ -80,7 +81,8 @@ export function renderHistoryList() {
           </p>
         </section>
       </section>`;
-      })
+        }
+      )
       .join('')}
       
 
